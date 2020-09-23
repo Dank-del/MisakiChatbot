@@ -1,5 +1,5 @@
 from time import time
-from pyrogram import Filters
+from pyrogram import filters
 
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
@@ -13,24 +13,22 @@ CoffeeHouseAPI = API(CF_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)
 
 
-HELP_TEXT = """• Reply `.adduser` to someone to enable the chatbot for that person!
-• Reply `.rmuser` to someone to stop the chatbot for them!
-Have fun!"""
+HELP_TEXT = """ • Reply `.adduser` to yourself to enable the chatbot for your ID!\n• Reply `.rmuser` to yourself to stop the chatbot for your ID! \nHave fun!"""
 
-@app.on_message(Filters.me & Filters.regex("^\.start$"))
+@app.on_message(filters.command("start"))
 def start(client, message):
-    message.edit_text("I'm alive! :3")
+    message.reply_text("Misaki - v0.1\n Using Coffeehouse AI from @Intellivoid")
 
 
-@app.on_message(Filters.me & Filters.regex("^\.help$"))
+@app.on_message(filters.command("help"))
 def help(client, message):
-    message.edit_text(HELP_TEXT, parse_mode="md")
+    message.reply_text(HELP_TEXT, parse_mode="md")
     
-  
-@app.on_message(Filters.me & Filters.regex("^\.adduser$"))
+
+@app.on_message(filters.command("adduser"))
 def add_user(client, message):
     if not message.reply_to_message:
-        message.edit_text("Reply to someone to enable chatbot for that person!")
+        message.reply_text("Reply to someone to enable chatbot for that person!")
         return
     user_id = message.reply_to_message.from_user.id
     is_user = db.is_user(user_id)
@@ -39,24 +37,24 @@ def add_user(client, message):
         ses_id = str(ses.id)
         expires = str(ses.expires)
         db.set_ses(user_id, ses_id, expires)
-        message.edit_text("AI enabled for user successfully!")
+        message.reply_text("AI enabled for user successfully!")
         LOGGER.info(f"AI enabled for user - {user_id}")
     else:
-        message.edit_text("AI is already enabled for this user!")
+        message.reply_text("AI is already enabled for this user!")
         
 
-@app.on_message(Filters.me & Filters.regex("^\.rmuser$"))
+@app.on_message(filters.command("rmuser"))
 def rem_user(client, message):
     if not message.reply_to_message:
-        message.edit_text("You've gotta reply to someone!")
+        message.reply_text("You've gotta reply to someone!")
         return
     user_id = message.reply_to_message.from_user.id
     is_user = db.is_user(user_id)
     if not is_user:
-        message.edit_text("AI isn't enabled for this user in the first place!")
+        message.reply_text("AI isn't enabled for this user in the first place!")
     else:
         db.rem_user(user_id)
-        message.edit_text("AI disabled for this user successfully!")
+        message.reply_text("AI disabled for this user successfully!")
         LOGGER.info(f"AI disabled for user - {user_id}")
 
 
@@ -70,7 +68,7 @@ def check_message(client, msg):
     return False
     
         
-@app.on_message(Filters.text)
+@app.on_message(filters.text)
 def chatbot(client, message):
     msg = message
     if not check_message(client, msg):
@@ -88,7 +86,7 @@ def chatbot(client, message):
         sesh, exp = ses_id, expires
         
     try:
-        msg.reply_chat_action("typing")
+        app.send_chat_action(msg.chat.id, "typing")
         response = api_client.think_thought(sesh, query)
         msg.reply_text(response)
     except CFError as e:

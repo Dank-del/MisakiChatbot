@@ -19,21 +19,23 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 6:
 ENV = bool(os.environ.get("ENV", False))
 
 if ENV:
-    STRING_SESSION = os.environ.get("STRING_SESSION")
     CF_API_KEY = os.environ.get("CF_API_KEY")
     DATABASE_URL = os.environ.get("DATABASE_URL")
     NAME = os.environ.get("NAME")
-    
+    TOKEN = os.environ.get("TOKEN")
+    API_ID = os.environ.get("API_ID")    
 else:
     from configparser import ConfigParser
     
     parser = ConfigParser()
     parser.read("config.ini")
     
-    STRING_SESSION = parser.get("config", "STRING_SESSION")
     CF_API_KEY = parser.get("config", "CF_API_KEY")
     DATABASE_URL = parser.get("config", "DATABASE_URL")
     NAME = parser.get("config", "NAME")
+    API_ID = parser.get("pyrogram", "api_id")
+    API_HASH = parser.get("pyrogram", "api_hash")
+    TOKEN = parser.get("pyrogram", "bot_token")
     
     
-app = Client(STRING_SESSION)
+app = Client('bot', api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
