@@ -17,7 +17,8 @@ HELP_TEXT = """ • Reply `/adduser` to yourself to enable the chatbot for your 
 
 @app.on_message(filters.command("start"))
 def start(client, message):
-    message.reply_text("Misaki - v0.1\n Using Coffeehouse AI from @Intellivoid\n Do `/help` to know more :D")
+    pic = "https://telegra.ph/file/f4a32d686bee0746183bb.jpg"
+    message.reply_photo(pic, caption="Misaki - v0.1\n Using Coffeehouse AI from @Intellivoid\n Do `/help` to know more :D")
 
 
 @app.on_message(filters.command("help"))
