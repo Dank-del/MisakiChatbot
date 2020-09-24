@@ -13,11 +13,11 @@ CoffeeHouseAPI = API(CF_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)
 
 
-HELP_TEXT = """ • Reply `.adduser` to yourself to enable the chatbot for your ID!\n• Reply `.rmuser` to yourself to stop the chatbot for your ID! \nHave fun!"""
+HELP_TEXT = """ • Reply `/adduser` to yourself to enable the chatbot for your ID!\n• Reply `/rmuser` to yourself to stop the chatbot for your ID! \nHave fun!"""
 
 @app.on_message(filters.command("start"))
 def start(client, message):
-    message.reply_text("Misaki - v0.1\n Using Coffeehouse AI from @Intellivoid")
+    message.reply_text("Misaki - v0.1\n Using Coffeehouse AI from @Intellivoid\n Do `/help` to know more :D")
 
 
 @app.on_message(filters.command("help"))
