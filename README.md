@@ -6,7 +6,7 @@ Open up your terminal and run these commands.
 
 • ```git clone https://github.com/Dank-del/MisakiChatbot.git```
 
-• ```cd Chatbot```
+• ```cd MisakiChatbot```
 
 • ```pip install -r requirements.txt```
 
