@@ -23,7 +23,8 @@ if ENV:
     DATABASE_URL = os.environ.get("DATABASE_URL")
     NAME = os.environ.get("NAME")
     TOKEN = os.environ.get("TOKEN")
-    API_ID = os.environ.get("API_ID")    
+    API_ID = os.environ.get("API_ID") 
+    API_HASH = os.environ.get("API_HASH")   
 else:
     from configparser import ConfigParser
     
