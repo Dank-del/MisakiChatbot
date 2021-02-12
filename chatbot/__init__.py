@@ -37,6 +37,8 @@ else:
     API_ID = parser.get("pyrogram", "api_id")
     API_HASH = parser.get("pyrogram", "api_hash")
     TOKEN = parser.get("pyrogram", "bot_token")
+
     
     
-app = Client('bot', api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+app = Client(':memory:', api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+
