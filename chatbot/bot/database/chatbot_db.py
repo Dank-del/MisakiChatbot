@@ -1,5 +1,4 @@
 import threading
-from typing import Set, Any
 
 from sqlalchemy import Column, String, Integer
 
@@ -20,7 +19,7 @@ class Chatbot(BASE):
 Chatbot.__table__.create(checkfirst=True)
 
 INSERTION_LOCK = threading.RLock()
-USERS: set[Any] = set()
+USERS = set()
 
 
 def is_user(user_id):
