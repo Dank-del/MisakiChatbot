@@ -1,3 +1,6 @@
+> ⚠️ **NOTICE**
+
+> Intellivoid has discontinued the Lydia API service, hence this code is now useless.
 # About
 A fun telegram userbot written in python3 using [Intellivoid](https://github.com/intellivoid)'s Coffeehouse API.
 Originally written by [this person](https://t.me/TheRealPhoenix)! Reworked by t.me/dank_as_fuck (misaki@eagleunion.tk)
